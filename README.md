@@ -1,5 +1,9 @@
 ## Weather in terminal
 
+#### Tests status
+
+[![Build Status](https://travis-ci.org/pawelpiwosz/docker-weather.svg?branch=master)](https://travis-ci.org/pawelpiwosz/docker-weather)
+
 #### Synopsis
 
 Print weather for selected location.  
