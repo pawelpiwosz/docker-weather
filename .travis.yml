@@ -50,5 +50,5 @@ jobs:
   - stage: Check container
     script:
       - docker pull $DOCKER_USERNAME/weather
-      - docker run --rm $DOCKER_USERNAME/weather -h
+      - docker run --rm $DOCKER_USERNAME/weather
     
