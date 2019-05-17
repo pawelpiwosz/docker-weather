@@ -39,4 +39,6 @@ jobs:
     script:
       - echo "push to repo"
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker push $DOCKER_USERNAME/weather:latest
+      - docker logout
     
