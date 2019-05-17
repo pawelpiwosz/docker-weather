@@ -6,9 +6,9 @@ stages:
   - name: Script tests
   - name: Build test
   - name: Push container
-    if: branch = master
+    if: [ ${TRAVIS_BRANCH} = "master" ] && [ ${TRAVIS_PULL_REQUEST} = "false" ]
   - name: Check container
-    if: branch = master
+    if: [ ${TRAVIS_BRANCH} = "master" ] && [ ${TRAVIS_PULL_REQUEST} = "false" ]
 
 services:
   - docker
@@ -18,7 +18,7 @@ install:
   - sudo apt-get -qq update
   - sudo apt-get -t trusty-backports install shellcheck
   - sudo pip install bashate
-  
+
 jobs:
   include:
   - stage: Script tests
@@ -45,9 +45,8 @@ jobs:
       - docker tag weather ${DOCKER_USERNAME}/weather
       - docker push ${DOCKER_USERNAME}/weather
       - docker logout
-      
+
   - stage: Check container
     script:
       - docker pull ${DOCKER_USERNAME}/weather
       - docker run --rm ${DOCKER_USERNAME}/weather -d 3 -l "London" -b openweathermap -owm-api-key ${WEATHER_KEY}
-    
