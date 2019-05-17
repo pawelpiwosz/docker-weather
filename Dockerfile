@@ -22,4 +22,4 @@ WORKDIR /usr/local/bin/
 COPY --from=builder /go/bin/wego .
 RUN chmod +x wego
 
-entrypoint ["/usr/local/bin/wego"]
+ENTRYPOINT ["/usr/local/bin/wego"]
