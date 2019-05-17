@@ -38,6 +38,7 @@ jobs:
     #on: branch = master
     script:
       - echo "push to repo"
+      - docker build -t weather .
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker push $DOCKER_USERNAME/weather:latest
       - docker logout
