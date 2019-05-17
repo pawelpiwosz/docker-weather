@@ -2,12 +2,6 @@ sudo: required
 dist: trusty
 language: bash
 
-stages:
-  - test1
-  - test2
-  - name: push
-    if: branch = master
-
 services:
   - docker
 
@@ -16,6 +10,7 @@ install:
   - sudo apt-get -qq update
   - sudo apt-get -t trusty-backports install shellcheck
   - sudo pip install bashate
+  
 jobs:
   include:
   - stage: test1
@@ -37,4 +32,6 @@ jobs:
 
   - stage: push
     name: "Push container to repository"
+    if: branch = master
+      - echo "push to repo"
     
