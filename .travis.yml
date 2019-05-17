@@ -50,7 +50,7 @@ jobs:
   - stage: Check container
     script:
       - docker pull ${DOCKER_USERNAME}/weather
-      - chmod +x test-run.sh
-      - ./test-run.sh ${DOCKER_USERNAME}
-      #- docker run --rm "${DOCKER_USERNAME}/weather"
+      #- chmod +x test-run.sh
+      #- ./test-run.sh ${DOCKER_USERNAME}
+      - docker run --rm ${DOCKER_USERNAME}/weather -d 3 -l "London" -b openweathermap -owm-api-key ${WEATHER_KEY}
     
