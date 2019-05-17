@@ -9,6 +9,14 @@
 Print weather for selected location.  
 Built based on `wego` ([link to source](https://github.com/schachmat/wego))
 
+#### Pull image
+
+In order to pull image, run:
+
+```
+$ docker pull almerhor/weather
+```
+
 #### Build container
 
 ```
