@@ -43,12 +43,12 @@ jobs:
       - docker build -t weather .
       - docker images
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker tag weather $DOCKER_USERNAME/weather
-      - docker push $DOCKER_USERNAME/weather
+      - docker tag weather ${DOCKER_USERNAME}/weather
+      - docker push ${DOCKER_USERNAME}/weather
       - docker logout
       
   - stage: Check container
     script:
-      - docker pull $DOCKER_USERNAME/weather
-      - docker run --rm $DOCKER_USERNAME/weather
+      - docker pull ${DOCKER_USERNAME}/weather
+      - docker run --rm ${DOCKER_USERNAME}/weather
     
