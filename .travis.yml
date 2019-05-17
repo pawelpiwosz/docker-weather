@@ -2,6 +2,12 @@ sudo: required
 dist: trusty
 language: bash
 
+stages:
+  - test1
+  - test2
+  - name: push
+    if: branch = master
+
 services:
   - docker
 
@@ -10,17 +16,25 @@ install:
   - sudo apt-get -qq update
   - sudo apt-get -t trusty-backports install shellcheck
   - sudo pip install bashate
+jobs:
+  include:
+  - stage: test1
+    name: "Script tests"
+    script:
+      - echo $TRAVIS_COMMIT
+      - echo $TRAVIS_TAG
+      - echo $TRAVIS_BRANCH
+      - echo $TRAVIS_BUILD_NUMBER
+      - echo $TRAVIS_REPO_SLUG
+      # test bash scripts
+      - shellcheck *.sh
+      - bashate *.sh
 
+  - stage: test2
+    name: "Build test"
+     script:
+      - ./test.sh ${TRAVIS_BRANCH} ${TRAVIS_COMMIT}
 
-
-script:
-  - echo $TRAVIS_COMMIT
-  - echo $TRAVIS_TAG
-  - echo $TRAVIS_BRANCH
-  - echo $TRAVIS_BUILD_NUMBER
-  - echo $TRAVIS_REPO_SLUG
-  # test bash scripts
-  - shellcheck *.sh
-  - bashate *.sh
-  # test docker build
-  - ./test.sh ${TRAVIS_BRANCH} ${TRAVIS_COMMIT}
+  - stage: push
+    name: "Push container to repository"
+    
