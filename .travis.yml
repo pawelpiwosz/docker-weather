@@ -28,7 +28,8 @@ jobs:
     script:
       - ./test.sh ${TRAVIS_BRANCH} ${TRAVIS_COMMIT}
 
-  - stage: pPush container
+  - stage: Push container
     if: branch = master
+    script:
       - echo "push to repo"
     
