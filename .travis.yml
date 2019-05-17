@@ -6,9 +6,9 @@ stages:
   - name: Script tests
   - name: Build test
   - name: Push container
-    if: [ ${TRAVIS_BRANCH} = "master" ] && [ ${TRAVIS_PULL_REQUEST} = "false" ]
+    if: ${TRAVIS_BRANCH} = "master" && ${TRAVIS_PULL_REQUEST} = "false"
   - name: Check container
-    if: [ ${TRAVIS_BRANCH} = "master" ] && [ ${TRAVIS_PULL_REQUEST} = "false" ]
+    if: ${TRAVIS_BRANCH} = "master" && ${TRAVIS_PULL_REQUEST} = "false"
 
 services:
   - docker
