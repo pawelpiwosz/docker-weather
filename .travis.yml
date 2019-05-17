@@ -5,7 +5,7 @@ language: bash
 services:
   - docker
 
-before_script:
+install:
   - sudo apt-add-repository "deb http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe multiverse"
   - sudo apt-get -qq update
   - sudo apt-get -t trusty-backports install shellcheck
