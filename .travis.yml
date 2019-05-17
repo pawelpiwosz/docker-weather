@@ -2,6 +2,12 @@ sudo: required
 dist: trusty
 language: bash
 
+stages:
+  - name: Script tests
+  - name: Build test
+  - name: Push container
+    if: branch = master
+
 services:
   - docker
 
@@ -29,7 +35,8 @@ jobs:
       - ./test.sh ${TRAVIS_BRANCH} ${TRAVIS_COMMIT}
 
   - stage: Push container
-    if: branch = master
+    #on: branch = master
     script:
       - echo "push to repo"
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     
