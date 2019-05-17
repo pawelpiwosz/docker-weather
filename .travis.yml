@@ -7,6 +7,8 @@ stages:
   - name: Build test
   - name: Push container
     if: branch = master
+  - name: Check container
+    if: branch = master
 
 services:
   - docker
@@ -39,7 +41,14 @@ jobs:
     script:
       - echo "push to repo"
       - docker build -t weather .
+      - docker images
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker tag weather $DOCKER_USERNAME/weather
       - docker push $DOCKER_USERNAME/weather:latest
       - docker logout
+      
+  - stage: Check container
+    script:
+      - docker pull $DOCKER_USERNAME/weather:latest
+      - docker run --rm weather:latest -h
     
