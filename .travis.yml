@@ -23,11 +23,11 @@ jobs:
   include:
   - stage: Script tests
     script:
-      - echo $TRAVIS_COMMIT
-      - echo $TRAVIS_TAG
-      - echo $TRAVIS_BRANCH
-      - echo $TRAVIS_BUILD_NUMBER
-      - echo $TRAVIS_REPO_SLUG
+      - echo ${TRAVIS_COMMIT}
+      - echo ${TRAVIS_TAG}
+      - echo ${TRAVIS_BRANCH}
+      - echo ${TRAVIS_BUILD_NUMBER}
+      - echo ${TRAVIS_REPO_SLUG}
       # test bash scripts
       - shellcheck *.sh
       - bashate *.sh
@@ -37,12 +37,11 @@ jobs:
       - ./test.sh ${TRAVIS_BRANCH} ${TRAVIS_COMMIT}
 
   - stage: Push container
-    #on: branch = master
     script:
       - echo "push to repo"
       - docker build -t weather .
       - docker images
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
       - docker tag weather ${DOCKER_USERNAME}/weather
       - docker push ${DOCKER_USERNAME}/weather
       - docker logout
@@ -50,7 +49,5 @@ jobs:
   - stage: Check container
     script:
       - docker pull ${DOCKER_USERNAME}/weather
-      #- chmod +x test-run.sh
-      #- ./test-run.sh ${DOCKER_USERNAME}
       - docker run --rm ${DOCKER_USERNAME}/weather -d 3 -l "London" -b openweathermap -owm-api-key ${WEATHER_KEY}
     
