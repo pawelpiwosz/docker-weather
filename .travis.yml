@@ -13,8 +13,7 @@ install:
   
 jobs:
   include:
-  - stage: test1
-    name: "Script tests"
+  - stage: Script tests
     script:
       - echo $TRAVIS_COMMIT
       - echo $TRAVIS_TAG
@@ -25,13 +24,11 @@ jobs:
       - shellcheck *.sh
       - bashate *.sh
 
-  - stage: test2
-    name: "Build test"
+  - stage: Build test
      script:
       - ./test.sh ${TRAVIS_BRANCH} ${TRAVIS_COMMIT}
 
-  - stage: push
-    name: "Push container to repository"
+  - stage: pPush container
     if: branch = master
       - echo "push to repo"
     
