@@ -44,11 +44,11 @@ jobs:
       - docker images
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker tag weather $DOCKER_USERNAME/weather
-      - docker push $DOCKER_USERNAME/weather:latest
+      - docker push $DOCKER_USERNAME/weather
       - docker logout
       
   - stage: Check container
     script:
-      - docker pull $DOCKER_USERNAME/weather:latest
+      - docker pull $DOCKER_USERNAME/weather
       - docker run --rm weather:latest -h
     
