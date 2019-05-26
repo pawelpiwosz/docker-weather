@@ -3,6 +3,9 @@
 #### Tests status
 
 [![Build Status](https://travis-ci.org/pawelpiwosz/docker-weather.svg?branch=master)](https://travis-ci.org/pawelpiwosz/docker-weather)
+[![](https://images.microbadger.com/badges/image/almerhor/weather.svg)](https://microbadger.com/images/almerhor/weather "Get your own image badge on microbadger.com")
+[![](https://images.microbadger.com/badges/version/almerhor/weather.svg)](https://microbadger.com/images/almerhor/weather "Get your own version badge on microbadger.com")
+
 
 #### Synopsis
 
