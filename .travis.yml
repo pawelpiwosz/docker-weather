@@ -5,10 +5,11 @@ language: bash
 stages:
   - name: Script tests
   - name: Build test
+    if: branch != master
   - name: Push container
     if: branch = master && type = pull_request
   - name: Check container
-    if: branch = master && type
+    if: branch = master || type = pull_request
 
 services:
   - docker
@@ -39,11 +40,15 @@ jobs:
   - stage: Push container
     script:
       - echo "push to repo"
-      - docker build -t weather .
+      - BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+      - VCS_REF=$(git rev-parse --short HEAD)
+      - VER=$(cat VERSION)
+      - docker build --build-arg BUILD_DATE=${BUILD_DATE} --build-arg VCS_REF=${VCS_REF} --build-arg VER=${VER} -t weather .
       - docker images
       - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
       - docker tag weather ${DOCKER_USERNAME}/weather
       - docker push ${DOCKER_USERNAME}/weather
+      - curl -X POST https://hooks.microbadger.com/images/almerhor/weather/VkPBm3EFjXO4YzzbqUolnp67bRQ=
       - docker logout
 
   - stage: Check container
