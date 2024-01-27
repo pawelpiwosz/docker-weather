@@ -16,7 +16,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /go/bin/wego .
 
 # Prepare target container
 
-FROM alpine:latest
+FROM alpine:3.19.1
 
 # For Travis build
 ARG BUILD_DATE
